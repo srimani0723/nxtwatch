@@ -5,6 +5,8 @@ export const LoginMainContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+
+  background-color: ${props => props.bg};
 `
 
 export const LoginForm = styled.form`
@@ -12,9 +14,10 @@ export const LoginForm = styled.form`
   flex-direction: column;
   justify-content: center;
 
-  padding: 20px;
+  padding: 40px;
   border-radius: 10px;
-  box-shadow: 0px 4px 16px 0px #cbd5e1;
+  box-shadow: 0px 4px 16px 0px ${props => props.shadow};
+  background-color: ${props => props.bg};
 
   @media screen and (max-width: 576px) {
     margin: 5%;
@@ -26,21 +29,19 @@ export const LogoBox = styled.div`
   justify-content: center;
   align-items: center;
 
-  padding: 20px;
+  font-family: 'Roboto';
 `
 
 export const Logo = styled.img`
   width: 50%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 `
 
 export const LoginBox = styled.div`
   display: flex;
   flex-direction: ${props => (props.direction ? props.direction : 'row')};
-  align-items: ${props => (props.align ? props.align : 'flex-start')};
-  justify-content: ${props => (props.content ? props.content : 'flex-start')};
-  margin-top: 10px;
+  align-items: ${props => (props.align ? props.align : null)};
+  margin-top: ${props => (props.mtop ? props.mtop : '10px')};
   margin-bottom: 10px;
 `
 
@@ -51,6 +52,9 @@ export const Input = styled.input`
   margin-top: 10px;
   cursor: pointer;
   outline: none;
+  font-size: medium;
+  color: ${props => (props.darkTheme ? '#f4f4f4' : null)};
+  background-color: ${props => props.bg};
 `
 
 export const CheckBoxInput = styled.input`
@@ -62,7 +66,7 @@ export const CheckBoxInput = styled.input`
 `
 
 export const Label = styled.label`
-  color: ${props => (props.color ? props.color : '#64748b')};
+  color: ${props => (props.darkTheme ? '#f4f4f4' : '#64748b')};
   font-size: ${props => (props.size ? props.size : 'small')};
   font-weight: ${props => (props.fweight ? props.fweight : 'bold')};
 `
@@ -84,5 +88,5 @@ export const LoginBtn = styled.button`
 export const ErrorMsg = styled.p`
   color: #ff0000;
   font-weight: 500;
-  margin-top: 0px;
+  margin: 0px;
 `

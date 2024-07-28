@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {Redirect} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Context from '../Context'
 import {
@@ -73,37 +74,58 @@ class Login extends Component {
       <Context.Consumer>
         {value => {
           const {passwordVisible, errorMsg} = this.state
-          const lightlogo =
-            'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+          const {darkTheme} = value
+          const logo = darkTheme
+            ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
+            : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+          const loginFormBg = darkTheme ? '#0f0f0f' : '#ffffff'
+          const loginBg = darkTheme ? '#212121' : '#ffffff'
+          const loginFormShadow = darkTheme ? '#212121' : '#e2e8f0'
+          const jwtToken = Cookies.get('jwt_token')
+          if (jwtToken !== undefined) {
+            return <Redirect to="/" />
+          }
 
           return (
-            <LoginMainContainer>
-              <LoginForm onSubmit={this.onSubmitForm}>
+            <LoginMainContainer bg={loginBg}>
+              <LoginForm
+                onSubmit={this.onSubmitForm}
+                bg={loginFormBg}
+                shadow={loginFormShadow}
+              >
                 <LogoBox>
-                  <Logo src={lightlogo} alt="logo" />
+                  <Logo src={logo} alt="logo" />
                 </LogoBox>
 
                 <LoginBox direction="column">
-                  <Label htmlFor="username">USERNAME</Label>
+                  <Label htmlFor="username" darkTheme={darkTheme}>
+                    USERNAME
+                  </Label>
                   <Input
                     type="text"
                     id="username"
                     placeholder="Username"
                     onChange={this.onChangeUsername}
+                    bg={loginFormBg}
+                    darkTheme={darkTheme}
                   />
                 </LoginBox>
 
                 <LoginBox direction="column">
-                  <Label htmlFor="password">PASSWORD</Label>
+                  <Label htmlFor="password" darkTheme={darkTheme}>
+                    PASSWORD
+                  </Label>
                   <Input
                     type={passwordVisible ? 'text' : 'password'}
                     id="password"
                     placeholder="Password"
                     onChange={this.onChangePassword}
+                    bg={loginFormBg}
+                    darkTheme={darkTheme}
                   />
                 </LoginBox>
 
-                <LoginBox align="center">
+                <LoginBox align="center" mtop="0px">
                   <CheckBoxInput
                     type="checkbox"
                     id="checkbox"
@@ -114,6 +136,7 @@ class Login extends Component {
                     size="medium"
                     color="#1e293b"
                     fweight="500"
+                    darkTheme={darkTheme}
                   >
                     Show Password
                   </Label>
@@ -123,7 +146,7 @@ class Login extends Component {
                   Login
                 </LoginBtn>
 
-                {errorMsg !== '' ? <ErrorMsg>*hi</ErrorMsg> : null}
+                {errorMsg !== '' ? <ErrorMsg>{errorMsg}</ErrorMsg> : null}
               </LoginForm>
             </LoginMainContainer>
           )
