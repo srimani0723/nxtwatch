@@ -6,7 +6,7 @@ import Context from './components/Context'
 import './App.css'
 
 // Replace your code here
-class App extends Component() {
+class App extends Component{
   state = {
     darkTheme: false,
   }
