@@ -11,18 +11,27 @@ export const HeaderBg = styled.div`
 `
 export const IconsBox = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 `
 
 export const Logo = styled.img`
   width: 13%;
   max-width: 120px;
+  min-width: 100px;
 `
 
 export const ProfileImg = styled.img`
   width: 30px;
   margin-left: 10px;
+
+  @media screen and (min-width: 576px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
 `
 
 export const Button = styled.button`
@@ -43,16 +52,49 @@ export const Button = styled.button`
   background-color: transparent;
 
   cursor: pointer;
+
+  @media screen and (min-width: 576px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
 `
 export const ThemeBtn = styled.button`
   background-color: transparent;
   border: 0px;
   font-size: 25px;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   color: ${props => props.color};
+
+  cursor: pointer;
+`
+export const SmScreenButton = styled.button`
+  background-color: transparent;
+  border: 0px;
+  font-size: ${props => (props.size ? props.size : '40px')};
+  font-weight: 600;
+
+  color: ${props => props.color};
+
+  padding-top: ${props => props.pt};
+
   display: flex;
   justify-content: center;
   align-items: center;
 
   cursor: pointer;
+
+  @media screen and (min-width: 576px) {
+    display: none;
+  }
+
+  @media screen and (max-width: 576px) {
+    display: block;
+  }
 `
