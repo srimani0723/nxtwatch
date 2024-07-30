@@ -1,8 +1,8 @@
-import {Component} from 'react'
+import {withRouter} from 'react-router-dom'
+import Cookies from 'js-cookie'
 import './index.css'
 
 import Popup from 'reactjs-popup'
-import 'reactjs-popup/dist/index.css'
 
 import {FiSun, FiLogOut} from 'react-icons/fi'
 import {FaMoon} from 'react-icons/fa'
@@ -19,100 +19,102 @@ import {
 } from './styledcomponents'
 import Context from '../Context'
 
-class Header extends Component {
-  state = {}
+const Header = props => (
+  <Context.Consumer>
+    {value => {
+      const {darkTheme, toggleTheme} = value
+      const profile =
+        'https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png'
+      const logo = darkTheme
+        ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
+        : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+      const changeTheme = () => {
+        toggleTheme()
+      }
+      const Bg = darkTheme ? '#181818' : '#f9f9f9'
+      const popupThemeBgColor = darkTheme ? '#212121' : '#ffffff'
+      const cancelBtn = darkTheme
+        ? {color: '#ffffff', border: '1px solid #ffffff'}
+        : null
+      const popupPara = darkTheme ? {color: '#ffffff'} : null
 
-  render() {
-    return (
-      <Context.Consumer>
-        {value => {
-          const {darkTheme, toggleTheme} = value
-          const profile =
-            'https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png'
-          const logo = darkTheme
-            ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
-            : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
-          const changeTheme = () => {
-            toggleTheme()
-          }
-          const Bg = darkTheme ? '#181818' : '#f9f9f9'
+      const onLogOut = () => {
+        Cookies.remove('jwt_token')
+        const {history} = props
+        history.replace('/login')
+      }
 
-          const logOutBtnColor = darkTheme ? '#ffffff' : '#3b82f6'
+      return (
+        <>
+          <HeaderBg bg={Bg}>
+            <Logo src={logo} />
+            <IconsBox>
+              <ThemeBtn
+                onClick={changeTheme}
+                color={darkTheme ? '#ffffff' : null}
+              >
+                {darkTheme ? <FiSun /> : <FaMoon />}
+              </ThemeBtn>
 
-          return (
-            <>
-              <HeaderBg bg={Bg}>
-                <Logo src={logo} />
-                <IconsBox>
-                  <ThemeBtn
-                    onClick={changeTheme}
-                    color={darkTheme ? '#ffffff' : null}
+              <ProfileImg src={profile} />
+
+              <SmScreenButton
+                type="button"
+                color={darkTheme ? '#ffffff' : null}
+                pt="10px"
+              >
+                <IoReorderThree />
+              </SmScreenButton>
+
+              <Popup
+                modal
+                trigger={
+                  <button type="button" className="trigger-button popup-btn">
+                    <button type="button" className="trigger-button">
+                      Logout
+                    </button>
+
+                    <button type="button" className="trigger-button">
+                      <FiLogOut />
+                    </button>
+                  </button>
+                }
+              >
+                {close => (
+                  <div
+                    className="popup-content"
+                    style={{backgroundColor: `${popupThemeBgColor}`}}
                   >
-                    {darkTheme ? <FiSun /> : <FaMoon />}
-                  </ThemeBtn>
+                    <p className="popup-para" style={popupPara}>
+                      Are you sure you want to logout?
+                    </p>
+                    <div className="popup-btn-box">
+                      <button
+                        type="button"
+                        className="trigger-button popup-cancel"
+                        onClick={() => close()}
+                        style={cancelBtn}
+                      >
+                        Cancel
+                      </button>
 
-                  <ProfileImg src={profile} />
-
-                  <SmScreenButton
-                    type="button"
-                    color={darkTheme ? '#ffffff' : null}
-                    pt="10px"
-                  >
-                    <IoReorderThree />
-                  </SmScreenButton>
-
-                  <div className="popup-container">
-                    <Popup
-                      modal
-                      trigger={
-                        <button
-                          type="button"
-                          className="trigger-button popup-btn"
-                        >
-                          <Button
-                            type="button"
-                            color={darkTheme ? '#ffffff' : '#3b82f6'}
-                          >
-                            Logout
-                          </Button>
-
-                          <SmScreenButton
-                            type="button"
-                            color={darkTheme ? '#ffffff' : null}
-                            size="30px"
-                          >
-                            <FiLogOut />
-                          </SmScreenButton>
-                        </button>
-                      }
-                    >
-                      {close => (
-                        <>
-                          <div>
-                            <p>
-                              React is a popular and widely used programming
-                              language
-                            </p>
-                          </div>
-                          <button
-                            type="button"
-                            className="trigger-button"
-                            onClick={() => close()}
-                          >
-                            Close
-                          </button>
-                        </>
-                      )}
-                    </Popup>
+                      <button
+                        type="button"
+                        className="popup-confirm"
+                        onClick={onLogOut}
+                      >
+                        Confirm
+                      </button>
+                    </div>
                   </div>
-                </IconsBox>
-              </HeaderBg>
-            </>
-          )
-        }}
-      </Context.Consumer>
-    )
-  }
-}
+                )}
+              </Popup>
+            </IconsBox>
+          </HeaderBg>
+        </>
+      )
+    }}
+  </Context.Consumer>
+)
 
-export default Header
+export default withRouter(Header)

@@ -1,5 +1,119 @@
+.logout-btn {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  border-radius: 0px;
+  font-size: large;
+  font-weight: bold;
+
+  margin-left: 15px;
+  border-radius: 3px;
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
+.logout-btnsm {
+  background-color: transparent;
+  border: 0px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+@media screen and (min-width: 576px) {
+  .logout-btn {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .logout-btn {
+    display: none;
+  }
+}
+
 .popup-btn {
   background-color: transparent;
   border: 0px;
   padding: 0px;
+}
+
+.popup-content {
+  padding: 30px;
+  padding-top: 5px;
+  padding-bottom: 20px;
+
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 576px) {
+  .popup-content {
+    width: 100%;
+  }
+}
+
+.popup-arrow {
+  color: rgb(255, 255, 255);
+}
+[role='tooltip'].popup-content {
+  width: 200px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+}
+
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+[data-popup='tooltip'].popup-overlay {
+  background: transparent;
+}
+
+.popup-para {
+  padding: 0px;
+  color: #00306e;
+  font-size: medium;
+  font-weight: 500;
+}
+
+.popup-btn-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-cancel {
+  background-color: transparent;
+  padding: 10px;
+  border: 1px solid;
+  margin-right: 20px;
+
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+
+  font-family: 'Roboto';
+}
+
+.popup-confirm {
+  border: 0px;
+  padding: 10px;
+  background-color: #3b82f6;
+  color: #ffffff;
+  font-family: 'Roboto';
+  font-weight: 500;
+  border-radius: 3px;
+
+  cursor: pointer;
+  outline: none;
 }
