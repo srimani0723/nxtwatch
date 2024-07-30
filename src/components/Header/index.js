@@ -74,7 +74,11 @@ const Header = props => (
                       Logout
                     </button>
 
-                    <button type="button" className="trigger-button">
+                    <button
+                      type="button"
+                      className="trigger-button"
+                      aria-label="close"
+                    >
                       <FiLogOut />
                     </button>
                   </button>
