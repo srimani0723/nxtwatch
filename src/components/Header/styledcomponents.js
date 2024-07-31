@@ -13,6 +13,7 @@ export const IconsBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 40px;
 `
 
 export const Logo = styled.img`

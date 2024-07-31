@@ -1,15 +1,21 @@
 import {Component} from 'react'
-import {} from './styledcomponents'
+
 import Header from '../Header'
+import SideNavbar from '../SideNavbar'
+
+import {Div, Para} from './styledcomponents'
 
 class Home extends Component {
   state = {}
 
   render() {
     return (
-      <div>
+      <Div flex="column">
         <Header />
-      </div>
+        <Div flex="row">
+          <SideNavbar />
+        </Div>
+      </Div>
     )
   }
 }

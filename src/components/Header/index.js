@@ -1,6 +1,5 @@
 import {withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
-import './index.css'
 
 import Popup from 'reactjs-popup'
 
@@ -8,12 +7,12 @@ import {FiSun, FiLogOut} from 'react-icons/fi'
 import {FaMoon} from 'react-icons/fa'
 import {IoReorderThree} from 'react-icons/io5'
 
+import './index.css'
 import {
   HeaderBg,
   IconsBox,
   Logo,
   ProfileImg,
-  Button,
   ThemeBtn,
   SmScreenButton,
 } from './styledcomponents'
@@ -36,7 +35,9 @@ const Header = props => (
       const cancelBtn = darkTheme
         ? {color: '#ffffff', border: '1px solid #ffffff'}
         : null
-      const popupPara = darkTheme ? {color: '#ffffff'} : null
+      const logoutBtnPara = darkTheme
+        ? {color: '#000000', border: '1px solid #000000'}
+        : {color: '#3b82f6', border: '1px solid #3b82f6'}
 
       const onLogOut = () => {
         Cookies.remove('jwt_token')
@@ -69,18 +70,18 @@ const Header = props => (
               <Popup
                 modal
                 trigger={
-                  <button type="button" className="trigger-button popup-btn">
-                    <button type="button" className="trigger-button">
+                  <button
+                    type="button"
+                    className="trigger-button logout-btn"
+                    aria-label="close"
+                  >
+                    <p className="logout-btn-para" style={logoutBtnPara}>
                       Logout
-                    </button>
-
-                    <button
-                      type="button"
-                      className="trigger-button"
-                      aria-label="close"
-                    >
-                      <FiLogOut />
-                    </button>
+                    </p>
+                    <FiLogOut
+                      className="logout-btn-logo"
+                      style={{color: darkTheme ? '#ffffff' : '#000000'}}
+                    />
                   </button>
                 }
               >
@@ -89,7 +90,10 @@ const Header = props => (
                     className="popup-content"
                     style={{backgroundColor: `${popupThemeBgColor}`}}
                   >
-                    <p className="popup-para" style={popupPara}>
+                    <p
+                      className="popup-para"
+                      style={{color: darkTheme ? '#ffffff' : '#00306e'}}
+                    >
                       Are you sure you want to logout?
                     </p>
                     <div className="popup-btn-box">

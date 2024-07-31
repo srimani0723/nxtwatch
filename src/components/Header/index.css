@@ -1,47 +1,57 @@
 .logout-btn {
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  background-color: transparent;
+
+  cursor: pointer;
+  outline: none;
+
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout-btn-para {
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 5px;
   padding-bottom: 5px;
 
   border-radius: 0px;
-  font-size: large;
+  font-size: medium;
   font-weight: bold;
 
-  margin-left: 15px;
   border-radius: 3px;
-  background-color: transparent;
-
-  cursor: pointer;
 }
 
-.logout-btnsm {
-  background-color: transparent;
-  border: 0px;
-  font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
+.logout-btn-logo {
+  font-size: 25px;
 }
 
 @media screen and (min-width: 576px) {
-  .logout-btn {
+  .logout-btn-para {
     display: block;
+  }
+  .logout-btn-logo {
+    display: none;
+  }
+  .logout-btn {
+    margin-left: 20px;
   }
 }
 
 @media screen and (max-width: 576px) {
-  .logout-btn {
+  .logout-btn-para {
     display: none;
   }
-}
-
-.popup-btn {
-  background-color: transparent;
-  border: 0px;
-  padding: 0px;
+  .logout-btn-logo {
+    display: block;
+  }
+  .logout-btn {
+    margin-left: 10px;
+  }
 }
 
 .popup-content {
@@ -81,7 +91,6 @@
 
 .popup-para {
   padding: 0px;
-  color: #00306e;
   font-size: medium;
   font-weight: 500;
 }
