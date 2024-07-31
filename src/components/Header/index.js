@@ -36,7 +36,7 @@ const Header = props => (
         ? {color: '#ffffff', border: '1px solid #ffffff'}
         : null
       const logoutBtnPara = darkTheme
-        ? {color: '#000000', border: '1px solid #000000'}
+        ? {color: '#ffffff', border: '1px solid #ffffff'}
         : {color: '#3b82f6', border: '1px solid #3b82f6'}
 
       const onLogOut = () => {

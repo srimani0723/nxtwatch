@@ -11,10 +11,18 @@ import VideoItemDetails from './components/VideoItemDetails'
 import Context from './components/Context'
 import './App.css'
 
-// Replace your code here
+const menuConstaints = {
+  initial: 'INITIAL',
+  home: 'HOME',
+  trending: 'TRENDING',
+  gaming: 'GAMING',
+  savedVideos: 'SAVED_VIDEOS',
+}
+
 class App extends Component {
   state = {
     darkTheme: false,
+    activeMenu: menuConstaints.home,
   }
 
   onToggleTheme = () => {
@@ -23,10 +31,23 @@ class App extends Component {
     }))
   }
 
+  onChangeMenu = constaint => {
+    this.setState({
+      activeMenu: constaint,
+    })
+  }
+
   render() {
-    const {darkTheme} = this.state
+    const {darkTheme, activeMenu} = this.state
     return (
-      <Context.Provider value={{darkTheme, toggleTheme: this.onToggleTheme}}>
+      <Context.Provider
+        value={{
+          darkTheme,
+          toggleTheme: this.onToggleTheme,
+          activeMenu,
+          changeMenu: this.onChangeMenu,
+        }}
+      >
         <Switch>
           <Route exact path="/login" component={Login} />
           <ProtectedRoute exact path="/" component={Home} />

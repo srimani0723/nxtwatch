@@ -8,12 +8,12 @@ export const HeaderBg = styled.div`
 
   padding: 20px;
   background-color: ${props => props.bg};
+  height: 10vh;
 `
 export const IconsBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
 `
 
 export const Logo = styled.img`

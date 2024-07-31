@@ -3,19 +3,27 @@ import {Component} from 'react'
 import Header from '../Header'
 import SideNavbar from '../SideNavbar'
 
-import {Div, Para} from './styledcomponents'
+import {
+  HomeContainer,
+  MainContainer,
+  Para,
+  ContentBox,
+} from './styledcomponents'
 
 class Home extends Component {
   state = {}
 
   render() {
     return (
-      <Div flex="column">
+      <HomeContainer flex="column">
         <Header />
-        <Div flex="row">
+        <MainContainer flex="row">
           <SideNavbar />
-        </Div>
-      </Div>
+          <ContentBox>
+            <Para>hi</Para>
+          </ContentBox>
+        </MainContainer>
+      </HomeContainer>
     )
   }
 }
