@@ -16,13 +16,31 @@ export const Menu = styled.li`
   cursor: pointer;
 
   display: flex;
-  justify-content: flex-start;
   align-items: center;
 
   font-family: 'Roboto';
   font-weight: normal;
 
+  padding: 0px;
   margin-right: 20px;
+  width: 100%;
+
+  @media screen and (max-width: 768px) {
+    padding-left: 30%;
+  }
+
+  background-color: ${props => {
+    const {darkTheme, isActive} = props
+    const color = darkTheme ? '#424242' : '#e2e8f0'
+    return isActive ? color : ''
+  }};
 `
 
-export const Para = styled.p``
+export const Para = styled.p`
+  color: ${props => {
+    const {isActive, darkTheme} = props
+    const color = darkTheme ? '#f9f9f9' : '#0f0f0f'
+    return isActive ? color : '#7e858e'
+  }};
+  font-weight: ${props => (props.isActive ? '500' : '500')};
+`

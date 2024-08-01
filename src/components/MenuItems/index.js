@@ -1,4 +1,3 @@
-import {Component} from 'react'
 import {Link} from 'react-router-dom'
 
 import {SiYoutubegaming} from 'react-icons/si'
@@ -18,57 +17,122 @@ const menuConstaints = {
   savedVideos: 'SAVED_VIDEOS',
 }
 
-class MenuItems extends Component {
-  state = {}
+const MenuItems = () => (
+  <Context.Consumer>
+    {value => {
+      const {darkTheme, activeMenu, changeMenu} = value
+      const iconColor = darkTheme ? '#424242' : '#7e858e'
+      const iconActive = '#ff0b37'
 
-  render() {
-    return (
-      <Context.Consumer>
-        {value => {
-          const {darkTheme, activeMenu, changeMenu} = value
-          const linkColor = darkTheme ? '#f4f4f4' : '#383838'
-          return (
-            <MenuList>
-              <Link to="/" className="link" key={menuConstaints.home}>
-                <Menu>
-                  <AiFillHome className="icon" />
-                  <Para>Home</Para>
-                </Menu>
-              </Link>
-
-              <Link
-                to="/trending"
-                className="link"
-                key={menuConstaints.trending}
+      return (
+        <MenuList>
+          <Link
+            to="/"
+            className="link"
+            onClick={() => changeMenu(menuConstaints.home)}
+          >
+            <Menu
+              isActive={activeMenu === menuConstaints.home}
+              key={menuConstaints.home}
+              darkTheme={darkTheme}
+            >
+              <AiFillHome
+                className="icon"
+                color={
+                  activeMenu === menuConstaints.home ? iconActive : iconColor
+                }
+              />
+              <Para
+                isActive={activeMenu === menuConstaints.home}
+                darkTheme={darkTheme}
               >
-                <Menu>
-                  <HiFire className="icon" />
-                  <Para>Trending</Para>
-                </Menu>
-              </Link>
+                Home
+              </Para>
+            </Menu>
+          </Link>
 
-              <Link to="/gaming" className="link" key={menuConstaints.gaming}>
-                <Menu>
-                  <SiYoutubegaming className="icon" />
-                  <Para>Gaming</Para>
-                </Menu>
-              </Link>
-
-              <Link
-                to="/saved-videos"
-                className="link"
-                key={menuConstaints.savedVideos}
+          <Link
+            to="/trending"
+            className="link"
+            onClick={() => changeMenu(menuConstaints.trending)}
+          >
+            <Menu
+              isActive={activeMenu === menuConstaints.trending}
+              key={menuConstaints.trending}
+              darkTheme={darkTheme}
+            >
+              <HiFire
+                className="icon"
+                color={
+                  activeMenu === menuConstaints.trending
+                    ? iconActive
+                    : iconColor
+                }
+              />
+              <Para
+                isActive={activeMenu === menuConstaints.trending}
+                darkTheme={darkTheme}
               >
-                <Menu>
-                  <MdPlaylistAdd className="icon" />
-                  <Para>Saved videos</Para>
-                </Menu>
-              </Link>
-            </MenuList>
-          )
-        }}
-      </Context.Consumer>
-    )
-  }
-}
+                Trending
+              </Para>
+            </Menu>
+          </Link>
+
+          <Link
+            to="/gaming"
+            className="link"
+            onClick={() => changeMenu(menuConstaints.gaming)}
+          >
+            <Menu
+              isActive={activeMenu === menuConstaints.gaming}
+              key={menuConstaints.gaming}
+              darkTheme={darkTheme}
+            >
+              <SiYoutubegaming
+                className="icon"
+                color={
+                  activeMenu === menuConstaints.gaming ? iconActive : iconColor
+                }
+              />
+              <Para
+                isActive={activeMenu === menuConstaints.gaming}
+                darkTheme={darkTheme}
+              >
+                Gaming
+              </Para>
+            </Menu>
+          </Link>
+
+          <Link
+            to="/saved-videos"
+            className="link"
+            onClick={() => changeMenu(menuConstaints.savedVideos)}
+          >
+            <Menu
+              isActive={activeMenu === menuConstaints.savedVideos}
+              key={menuConstaints.savedVideos}
+              darkTheme={darkTheme}
+            >
+              <MdPlaylistAdd
+                className="icon"
+                color={
+                  activeMenu === menuConstaints.savedVideos
+                    ? iconActive
+                    : iconColor
+                }
+              />
+              <Para
+                isActive={activeMenu === menuConstaints.savedVideos}
+                darkTheme={darkTheme}
+              >
+                Saved videos
+              </Para>
+            </Menu>
+          </Link>
+        </MenuList>
+      )
+    }}
+  </Context.Consumer>
+)
+
 export default MenuItems

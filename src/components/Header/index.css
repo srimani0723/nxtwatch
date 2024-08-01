@@ -30,7 +30,51 @@
   font-size: 25px;
 }
 
-@media screen and (min-width: 576px) {
+.options-btn {
+  background-color: transparent;
+  border: 0px;
+  font-size: 40px;
+  font-weight: 600;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.popup-options {
+  width: 100%;
+}
+
+.options-close-btn-box {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.options-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 100vh;
+  width: 100%;
+}
+
+.menu-items-box {
+  margin-bottom: 40vh;
+}
+
+.options-close-btn {
+  background-color: transparent;
+  border: 0px;
+  font-size: 35px;
+  align-self: flex-end;
+
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
   .logout-btn-para {
     display: block;
   }
@@ -40,9 +84,12 @@
   .logout-btn {
     margin-left: 20px;
   }
+  .options-btn {
+    display: none;
+  }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 768px) {
   .logout-btn-para {
     display: none;
   }
@@ -52,9 +99,12 @@
   .logout-btn {
     margin-left: 10px;
   }
+  .options-btn {
+    display: block;
+  }
 }
 
-.popup-content {
+.popup-logout-content {
   padding: 30px;
   padding-top: 5px;
   padding-bottom: 20px;
@@ -68,25 +118,28 @@
   border-radius: 10px;
 }
 
-@media screen and (max-width: 576px) {
-  .popup-content {
+@media screen and (max-width: 376px) {
+  .popup-logout-content {
     width: 100%;
   }
 }
 
-.popup-arrow {
+.popup-logout-arrow {
   color: rgb(255, 255, 255);
+  width: 100%;
 }
 [role='tooltip'].popup-content {
-  width: 200px;
+  width: 100%;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
 }
 
-.popup-overlay {
+.popup-logout-overlay {
   background: rgba(0, 0, 0, 0.5);
+  width: 100%;
 }
 [data-popup='tooltip'].popup-overlay {
   background: transparent;
+  width: 100%;
 }
 
 .popup-para {

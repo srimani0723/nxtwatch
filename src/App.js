@@ -44,6 +44,7 @@ class App extends Component {
         value={{
           darkTheme,
           toggleTheme: this.onToggleTheme,
+          menuConstaints,
           activeMenu,
           changeMenu: this.onChangeMenu,
         }}

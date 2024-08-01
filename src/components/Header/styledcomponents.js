@@ -26,11 +26,11 @@ export const ProfileImg = styled.img`
   width: 30px;
   margin-left: 10px;
 
-  @media screen and (min-width: 576px) {
+  @media screen and (min-width: 768px) {
     display: block;
   }
 
-  @media screen and (max-width: 576px) {
+  @media screen and (max-width: 768px) {
     display: none;
   }
 `
@@ -54,11 +54,11 @@ export const Button = styled.button`
 
   cursor: pointer;
 
-  @media screen and (min-width: 576px) {
+  @media screen and (min-width: 768px) {
     display: block;
   }
 
-  @media screen and (max-width: 576px) {
+  @media screen and (max-width: 768px) {
     display: none;
   }
 `
@@ -74,28 +74,4 @@ export const ThemeBtn = styled.button`
   color: ${props => props.color};
 
   cursor: pointer;
-`
-export const SmScreenButton = styled.button`
-  background-color: transparent;
-  border: 0px;
-  font-size: ${props => (props.size ? props.size : '40px')};
-  font-weight: 600;
-
-  color: ${props => props.color};
-
-  padding-top: ${props => props.pt};
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
-
-  @media screen and (min-width: 576px) {
-    display: none;
-  }
-
-  @media screen and (max-width: 576px) {
-    display: block;
-  }
 `
