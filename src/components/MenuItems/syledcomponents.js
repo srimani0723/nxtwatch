@@ -14,10 +14,12 @@ export const Menu = styled.li`
   text-decoration: none;
   outline: none;
   cursor: pointer;
+  height: 40px;
 
   display: flex;
   align-items: center;
 
+  font-size: 15px;
   font-family: 'Roboto';
   font-weight: normal;
 

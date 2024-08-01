@@ -4,11 +4,12 @@ import Cookies from 'js-cookie'
 
 import {IoClose} from 'react-icons/io5'
 import {IoMdSearch} from 'react-icons/io'
+
 import Context from '../Context'
 import Header from '../Header'
 import SideNavbar from '../SideNavbar'
+import HomeVideoCard from '../HomeVideoCard'
 
-import './index.css'
 import {
   Container,
   MainContainer,
@@ -25,6 +26,9 @@ import {
   FailureH1,
   FailurePara,
   FailureBtn,
+  LoaderBox,
+  RemoveBanner,
+  VideosList,
 } from './styledcomponents'
 import {Logo} from '../Header/styledcomponents'
 
@@ -51,22 +55,33 @@ class Home extends Component {
     this.setState({
       apiStatus: apiStatusConstants.inProgress,
     })
-
+    const {searchInput} = this.state
     const jwtToken = Cookies.get('jwt_token')
 
-    const url = 'https://apis.ccbp.in/videos/all?search='
+    const url = `https://apis.ccbp.in/videos/all?search=${searchInput}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
       },
       method: 'GET',
     }
-    const response = fetch(url, options)
+    const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
-      console.log(data)
+      const newData = data.videos.map(each => ({
+        channel: {
+          name: each.channel.name,
+          profileImageUrl: each.channel.profile_image_url,
+        },
+        id: each.id,
+        publishedAt: each.published_at,
+        thumbnailUrl: each.thumbnail_url,
+        title: each.title,
+        viewCount: each.view_count,
+      }))
 
       this.setState({
+        videosList: newData,
         apiStatus: apiStatusConstants.success,
       })
     } else {
@@ -89,9 +104,21 @@ class Home extends Component {
   }
 
   renderLoader = () => (
-    <div className="loader-container" data-testid="loader">
-      <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
-    </div>
+    <Context.Consumer>
+      {value => {
+        const {darkTheme} = value
+        return (
+          <LoaderBox data-testid="loader">
+            <Loader
+              type="ThreeDots"
+              color={darkTheme ? '#ffffff' : '#3b82f6'}
+              height="50"
+              width="50"
+            />
+          </LoaderBox>
+        )
+      }}
+    </Context.Consumer>
   )
 
   renderFailureView = () => (
@@ -121,6 +148,61 @@ class Home extends Component {
     </Context.Consumer>
   )
 
+  renderNovideosView = () => (
+    <Context.Consumer>
+      {value => {
+        const {darkTheme} = value
+
+        return (
+          <FailureBox>
+            <FailureImg
+              src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
+              alt="no videos"
+            />
+            <FailureH1 darkTheme={darkTheme}>No Search results found</FailureH1>
+            <FailurePara darkTheme={darkTheme}>
+              Try different key words or remove search filter
+            </FailurePara>
+            <FailureBtn type="button" onClick={this.getVideosList}>
+              Retry
+            </FailureBtn>
+          </FailureBox>
+        )
+      }}
+    </Context.Consumer>
+  )
+
+  renderVideoCards = () => {
+    const {videosList} = this.state
+
+    if (videosList.length === 0) {
+      return this.renderNovideosView()
+    }
+
+    return (
+      <VideosList>
+        {videosList.map(each => (
+          <HomeVideoCard key={each.id} details={each} />
+        ))}
+      </VideosList>
+    )
+  }
+
+  renderApiView = () => {
+    const {apiStatus} = this.state
+
+    switch (apiStatus) {
+      case apiStatusConstants.success:
+        return this.renderVideoCards()
+      case apiStatusConstants.failure:
+        return this.renderFailureView()
+      case apiStatusConstants.inProgress:
+        return this.renderLoader()
+      default:
+        return null
+    }
+  }
+
   render() {
     return (
       <Context.Consumer>
@@ -131,27 +213,22 @@ class Home extends Component {
             'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
 
           return (
-            <Container flex="column">
+            <Container>
               <Header />
-              <MainContainer flex="row">
+              <MainContainer>
                 <SideNavbar />
                 <ContentBox darkTheme={darkTheme}>
                   {bannerDisplay && (
-                    <Banner display={bannerDisplay}>
+                    <Banner>
                       <BannerContent>
                         <Logo src={logo} />
                         <Para>Buy Nxt Watch Premium plans with UPI</Para>
                         <GetItNowBtn type="button">GET IT NOW</GetItNowBtn>
                       </BannerContent>
 
-                      <button
-                        type="button"
-                        aria-label="close"
-                        onClick={this.onRemoveBanner}
-                        className="remove-btn"
-                      >
+                      <RemoveBanner type="button" onClick={this.onRemoveBanner}>
                         <IoClose size={25} />
-                      </button>
+                      </RemoveBanner>
                     </Banner>
                   )}
 
@@ -170,7 +247,7 @@ class Home extends Component {
                     </SearchBtn>
                   </SearchBox>
 
-                  {this.renderFailureView()}
+                  {this.renderApiView()}
                 </ContentBox>
               </MainContainer>
             </Container>

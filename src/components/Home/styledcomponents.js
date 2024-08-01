@@ -3,11 +3,16 @@ import styled from 'styled-components'
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+
+  width: 100%;
 `
 export const MainContainer = styled.div`
   display: flex;
   align-items: flex-start;
+  justify-content: flex-start;
+
   height: 90vh;
+  width: 100%;
 `
 export const ContentBox = styled.div`
   display: flex;
@@ -17,6 +22,8 @@ export const ContentBox = styled.div`
 
   flex-grow: 1;
   height: 90vh;
+
+  overflow: auto;
 `
 
 export const Para = styled.p``
@@ -53,14 +60,25 @@ export const Logo = styled.img`
   width: 20%;
 `
 
+export const RemoveBanner = styled.button`
+  border: 0px;
+  font-weight: bold;
+  background-color: transparent;
+  cursor: pointer;
+`
+
 export const SearchBox = styled.form`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 20px;
+  margin-bottom: 0px;
   width: 50%;
   max-width: 500px;
   border: 1px solid ${props => (props.darkTheme ? '#424242' : '#cccccc')};
+  @media screen and (max-width: 576px) {
+    width: 90%;
+  }
 `
 export const SearchBar = styled.input`
   cursor: pointer;
@@ -105,16 +123,35 @@ export const FailurePara = styled.p`
   color: #64748b;
   max-width: 350px;
   text-align: center;
+  margin-top: 0px;
 `
 
 export const FailureBtn = styled.button`
   border: 0px;
-  padding: 10px 20px;
+  padding: 10px 25px;
+  width: 100px;
   color: #f9f9f9;
   font-weight: 500;
   font-size: small;
   font-family: 'Roboto';
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: #4f46e5;
   cursor: pointer;
+`
+
+export const LoaderBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+`
+
+export const VideosList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 15px;
+  padding-top: 0px;
 `
