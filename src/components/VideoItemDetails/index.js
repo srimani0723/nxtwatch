@@ -48,6 +48,9 @@ class VideoItemDetails extends Component {
   state = {
     apiStatus: apiStatusConstants.initial,
     videoData: null,
+    like: false,
+    dislike: false,
+    save: false,
   }
 
   componentDidMount() {
@@ -89,8 +92,6 @@ class VideoItemDetails extends Component {
         videoUrl: each.video_url,
         viewCount: each.view_count,
       }
-
-      console.log(newData)
 
       this.setState({
         videoData: newData,
@@ -148,11 +149,31 @@ class VideoItemDetails extends Component {
     </Context.Consumer>
   )
 
+  onLike = () => {
+    this.setState(prevState => ({
+      like: !prevState.like,
+      dislike: false,
+    }))
+  }
+
+  onDisLike = () => {
+    this.setState(prevState => ({
+      like: false,
+      dislike: !prevState.dislike,
+    }))
+  }
+
+  onSaveVideo = () => {
+    this.setState(prevState => ({
+      save: !prevState.save,
+    }))
+  }
+
   renderVideoDetails = () => (
     <Context.Consumer>
       {value => {
-        const {darkTheme} = value
-        const {videoData} = this.state
+        const {darkTheme, saveVideo} = value
+        const {videoData, like, save, dislike} = this.state
         const {
           channel,
           description,
@@ -181,17 +202,35 @@ class VideoItemDetails extends Component {
               </VideoAction>
 
               <VideoAction>
-                <ActionButton type="button" darkTheme={darkTheme}>
+                <ActionButton
+                  type="button"
+                  darkTheme={darkTheme}
+                  onClick={this.onLike}
+                  style={{color: like ? '#ff0000' : null}}
+                >
                   <AiOutlineLike className="action-icon" />
                   Like
                 </ActionButton>
 
-                <ActionButton type="button" darkTheme={darkTheme}>
+                <ActionButton
+                  type="button"
+                  darkTheme={darkTheme}
+                  onClick={this.onDisLike}
+                  style={{color: dislike ? '#ff0000' : null}}
+                >
                   <AiOutlineDislike className="action-icon" />
                   Dislike
                 </ActionButton>
 
-                <ActionButton type="button" darkTheme={darkTheme}>
+                <ActionButton
+                  type="button"
+                  darkTheme={darkTheme}
+                  style={{color: save ? '#ff0000' : null}}
+                  onClick={() => {
+                    saveVideo({...videoData, isSaved: true})
+                    this.onSaveVideo()
+                  }}
+                >
                   <MdPlaylistAdd className="action-icon" />
                   Save
                 </ActionButton>

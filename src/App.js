@@ -24,6 +24,7 @@ class App extends Component {
   state = {
     darkTheme: false,
     activeMenu: menuConstaints.home,
+    savedVideosList: [],
   }
 
   onToggleTheme = () => {
@@ -38,8 +39,33 @@ class App extends Component {
     })
   }
 
+  addSavedVideos = obj => {
+    const {savedVideosList} = this.state
+    const index = savedVideosList.findIndex(each => each.id === obj.id)
+    if (index === -1) {
+      this.setState(prevState => ({
+        savedVideosList: [...prevState.savedVideosList, obj],
+      }))
+    }
+  }
+
+  deleteSavedVideos = obj => {
+    const {savedVideosList} = this.state
+
+    const newList = savedVideosList.filter(each => each.id !== obj.id)
+
+    this.setState({savedVideosList: newList})
+  }
+
+  updateSavedVideos = obj => {
+    this.deleteSavedVideos(obj)
+    this.setState(prevState => ({
+      savedVideosList: [...prevState.savedVideosList, obj],
+    }))
+  }
+
   render() {
-    const {darkTheme, activeMenu} = this.state
+    const {darkTheme, activeMenu, savedVideosList} = this.state
     return (
       <Context.Provider
         value={{
@@ -48,6 +74,10 @@ class App extends Component {
           menuConstaints,
           activeMenu,
           changeMenu: this.onChangeMenu,
+          savedVideosList,
+          saveVideo: this.addSavedVideos,
+          removeVideo: this.deleteSavedVideos,
+          updateVideo: this.updateSavedVideos,
         }}
       >
         <Switch>

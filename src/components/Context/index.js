@@ -6,6 +6,8 @@ const Context = React.createContext({
   activeMenu: '',
   changeMenu: () => {},
   savedVideosList: [],
+  saveVideo: () => {},
+  removeVideo: () => {},
 })
 
 export default Context

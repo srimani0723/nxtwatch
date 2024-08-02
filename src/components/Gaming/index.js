@@ -4,7 +4,6 @@ import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
 
 import {SiYoutubegaming} from 'react-icons/si'
-import {BsDot} from 'react-icons/bs'
 
 import Context from '../Context'
 import Header from '../Header'
@@ -23,7 +22,6 @@ import {
   FailureH1,
   FailureImg,
   FailurePara,
-  Name,
   LoaderBox,
   VideosList,
 } from './styledcomponents'
