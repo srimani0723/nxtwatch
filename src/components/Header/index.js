@@ -57,6 +57,7 @@ class Header extends Component {
                 <IconsBox>
                   <ThemeBtn
                     onClick={changeTheme}
+                    data-testid="theme"
                     color={darkTheme ? '#ffffff' : null}
                   >
                     {darkTheme ? <FiSun /> : <FaMoon />}

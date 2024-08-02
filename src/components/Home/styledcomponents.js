@@ -3,22 +3,21 @@ import styled from 'styled-components'
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-
-  width: 100%;
 `
 export const MainContainer = styled.div`
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
-
   height: 90vh;
-  width: 100%;
 `
 export const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
-
   background-color: ${props => (props.darkTheme ? '#181818' : '#f9f9f9')};
+
+  width: 85%;
+  @media screen and (min-width: 992px) {
+    width: 95%;
+  }
 
   flex-grow: 1;
   height: 90vh;
@@ -26,7 +25,10 @@ export const ContentBox = styled.div`
   overflow: auto;
 `
 
-export const Para = styled.p``
+export const Para = styled.p`
+  font-family: 'Roboto';
+  font-weight: normal;
+`
 
 export const Banner = styled.div`
   display: flex;
@@ -45,6 +47,7 @@ export const BannerContent = styled.div`
   align-items: flex-start;
 
   padding: 20px;
+  width: 50%;
 `
 export const GetItNowBtn = styled.button`
   background-color: transparent;
@@ -102,6 +105,7 @@ export const FailureBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
   width: 100%;
 `
 export const FailureImg = styled.img`

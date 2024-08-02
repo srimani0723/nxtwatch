@@ -9,13 +9,13 @@ export const MainBox = styled.div`
   background-color: ${props => props.bg};
 
   @media screen and (min-width: 768px) and (max-width: 992px) {
-    width: 30%;
+    width: 20%;
     min-width: 200px;
     display: flex;
   }
 
   @media screen and (min-width: 992px) {
-    min-width: 250px;
+    width: 20%;
   }
 
   @media screen and (max-width: 768px) {

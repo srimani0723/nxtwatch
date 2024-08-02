@@ -5,6 +5,7 @@ const Context = React.createContext({
   toggleTheme: () => {},
   activeMenu: '',
   changeMenu: () => {},
+  savedVideosList: [],
 })
 
 export default Context

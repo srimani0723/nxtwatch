@@ -51,11 +51,12 @@ class Home extends Component {
     this.getVideosList()
   }
 
-  getVideosList = async () => {
+  getVideosList = async event => {
     this.setState({
       apiStatus: apiStatusConstants.inProgress,
     })
     const {searchInput} = this.state
+    console.log(searchInput)
     const jwtToken = Cookies.get('jwt_token')
 
     const url = `https://apis.ccbp.in/videos/all?search=${searchInput}`
@@ -98,9 +99,12 @@ class Home extends Component {
   }
 
   onChangeInput = event => {
-    this.setState({
-      searchInput: event.target.value,
-    })
+    this.setState(
+      {
+        searchInput: event.target.value,
+      },
+      console.log(event.target.value),
+    )
   }
 
   renderLoader = () => (
@@ -203,12 +207,17 @@ class Home extends Component {
     }
   }
 
+  searchForVideo = event => {
+    event.preventDefault()
+    this.getVideosList()
+  }
+
   render() {
     return (
       <Context.Consumer>
         {value => {
           const {darkTheme} = value
-          const {bannerDisplay} = this.state
+          const {bannerDisplay, searchInput} = this.state
           const logo =
             'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
 
@@ -217,31 +226,43 @@ class Home extends Component {
               <Header />
               <MainContainer>
                 <SideNavbar />
-                <ContentBox darkTheme={darkTheme}>
-                  {bannerDisplay && (
-                    <Banner>
+                <ContentBox darkTheme={darkTheme} data-testid="home">
+                  {bannerDisplay ? (
+                    <Banner data-testid="banner">
                       <BannerContent>
-                        <Logo src={logo} />
-                        <Para>Buy Nxt Watch Premium plans with UPI</Para>
+                        <Logo src={logo} alt="nxt watch logo" />
+                        <Para>
+                          Buy Nxt Watch Premium prepaid plans with UPI
+                        </Para>
                         <GetItNowBtn type="button">GET IT NOW</GetItNowBtn>
                       </BannerContent>
 
-                      <RemoveBanner type="button" onClick={this.onRemoveBanner}>
+                      <RemoveBanner
+                        type="button"
+                        data-testid="close"
+                        onClick={this.onRemoveBanner}
+                      >
                         <IoClose size={25} />
                       </RemoveBanner>
                     </Banner>
-                  )}
+                  ) : null}
 
-                  <SearchBox darkTheme={darkTheme}>
+                  <SearchBox
+                    darkTheme={darkTheme}
+                    onSubmit={this.searchForVideo}
+                    value={searchInput}
+                  >
                     <SearchBar
                       darkTheme={darkTheme}
-                      type="text"
+                      type="search"
+                      onChange={this.onChangeInput}
                       placeholder="Search"
+                      value={searchInput}
                     />
                     <SearchBtn
                       type="button"
                       darkTheme={darkTheme}
-                      onChange={this.onChangeInput}
+                      onClick={this.getVideosList}
                     >
                       <IoMdSearch />
                     </SearchBtn>

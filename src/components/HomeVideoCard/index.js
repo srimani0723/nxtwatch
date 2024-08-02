@@ -33,9 +33,9 @@ const HomeVideoCard = props => (
             className="link"
             onClick={() => changeMenu('INITIAL')}
           >
-            <Thumbnail src={thumbnailUrl} />
+            <Thumbnail src={thumbnailUrl} alt="video thumbnail" />
             <Content>
-              <ThumbLogo src={profileImageUrl} />
+              <ThumbLogo src={profileImageUrl} alt="channel logo" />
               <VideoContent>
                 <Para darkTheme={darkTheme}>{title}</Para>
                 <Name darkTheme={darkTheme}>{name}</Name>
