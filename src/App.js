@@ -57,13 +57,6 @@ class App extends Component {
     this.setState({savedVideosList: newList})
   }
 
-  updateSavedVideos = obj => {
-    this.deleteSavedVideos(obj)
-    this.setState(prevState => ({
-      savedVideosList: [...prevState.savedVideosList, obj],
-    }))
-  }
-
   render() {
     const {darkTheme, activeMenu, savedVideosList} = this.state
     return (
@@ -77,7 +70,6 @@ class App extends Component {
           savedVideosList,
           saveVideo: this.addSavedVideos,
           removeVideo: this.deleteSavedVideos,
-          updateVideo: this.updateSavedVideos,
         }}
       >
         <Switch>
