@@ -51,7 +51,7 @@ class Home extends Component {
     this.getVideosList()
   }
 
-  getVideosList = async event => {
+  getVideosList = async () => {
     this.setState({
       apiStatus: apiStatusConstants.inProgress,
     })

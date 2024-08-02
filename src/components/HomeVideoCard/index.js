@@ -24,7 +24,10 @@ const HomeVideoCard = props => (
       const {details} = props
       const {channel, id, publishedAt, thumbnailUrl, title, viewCount} = details
       const {name, profileImageUrl} = channel
-      const date = formatDistanceToNow(new Date(publishedAt)).split(' ')[1]
+      const date = formatDistanceToNow(new Date(publishedAt))
+        .split(' ')
+        .slice(1, 3)
+        .join(' ')
 
       return (
         <Card>

@@ -1,0 +1,14 @@
+.link {
+  text-decoration: none;
+}
+
+.dot {
+  padding: 0px;
+  margin-top: 5px;
+}
+
+@media screen and (min-width: 576px) {
+  .dotsm {
+    display: none;
+  }
+}

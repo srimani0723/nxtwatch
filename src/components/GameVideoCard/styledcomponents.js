@@ -5,12 +5,13 @@ export const Card = styled.li`
   list-style: none;
 
   @media screen and (max-width: 576px) {
-    width: 100%;
-    margin-bottom: 20px;
+    width: 46%;
+    margin-left: 10px;
+    margin-bottom: 10%;
   }
 
   @media screen and (min-width: 576px) and (max-width: 768px) {
-    width: 48%;
+    width: 30%;
     margin: 5px;
   }
 
@@ -23,11 +24,7 @@ export const Card = styled.li`
 
 export const Thumbnail = styled.img`
   width: 100%;
-`
-
-export const ThumbLogo = styled.img`
-  width: 30px;
-  border-radius: 50%;
+  border-radius: 10px;
 `
 
 export const Para = styled.p`
@@ -53,20 +50,8 @@ export const Name = styled.p`
 
   color: ${props => (props.darkTheme ? ' #606060' : ' #606060')};
 `
-export const DataBox = styled.div`
-  display: flex;
-  align-items: center;
-`
-
-export const Content = styled.div`
-  display: flex;
-  align-items: flex-start;
-`
 
 export const VideoContent = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  padding-top: 0px;
-  padding-right: 0px;
 `
