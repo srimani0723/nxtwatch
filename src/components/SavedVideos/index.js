@@ -35,9 +35,9 @@ class SavedVideos extends Component {
               src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png"
               alt="no saved videos"
             />
-            <FailureH1 darkTheme={darkTheme}>No Search results found</FailureH1>
+            <FailureH1 darkTheme={darkTheme}>No saved videos found</FailureH1>
             <FailurePara darkTheme={darkTheme}>
-              Try different key words or remove search filter
+              Save your videos by clicking a button
             </FailurePara>
           </FailureBox>
         )
@@ -60,7 +60,7 @@ class SavedVideos extends Component {
               <HeadingLogo darkTheme={darkTheme}>
                 <HiFire size={30} color="#ff0b37" />
               </HeadingLogo>
-              <Heading darkTheme={darkTheme}>SavedVideos</Heading>
+              <Heading darkTheme={darkTheme}>Saved Videos</Heading>
             </HeadingBox>
 
             <VideosList>
@@ -85,7 +85,7 @@ class SavedVideos extends Component {
               <Header />
               <MainContainer flex="row">
                 <SideNavbar />
-                <ContentBox darkTheme={darkTheme}>
+                <ContentBox data-testid="savedVideos" darkTheme={darkTheme}>
                   {this.renderVideoCards()}
                 </ContentBox>
               </MainContainer>

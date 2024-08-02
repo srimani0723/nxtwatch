@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 
 import Popup from 'reactjs-popup'
@@ -45,15 +45,17 @@ class Header extends Component {
             : {color: '#3b82f6', border: '1px solid #3b82f6'}
 
           const onLogOut = () => {
-            Cookies.remove('jwt_token')
             const {history} = this.props
+            Cookies.remove('jwt_token')
             history.replace('/login')
           }
 
           return (
             <>
               <HeaderBg bg={Bg}>
-                <Logo src={logo} />
+                <Link to="/" className="link">
+                  <Logo src={logo} alt="website logo" />
+                </Link>
                 <IconsBox>
                   <ThemeBtn
                     onClick={changeTheme}
@@ -63,7 +65,7 @@ class Header extends Component {
                     {darkTheme ? <FiSun /> : <FaMoon />}
                   </ThemeBtn>
 
-                  <ProfileImg src={profile} />
+                  <ProfileImg src={profile} alt="profile" />
 
                   <div className="popup-options">
                     <Popup
@@ -114,12 +116,9 @@ class Header extends Component {
                     trigger={
                       <button
                         type="button"
-                        className="trigger-button logout-btn"
+                        className="trigger-button logout-btn pop-sm"
                         aria-label="close"
                       >
-                        <p className="logout-btn-para" style={logoutBtnPara}>
-                          Logout
-                        </p>
                         <FiLogOut
                           className="logout-btn-logo"
                           style={{color: darkTheme ? '#ffffff' : '#000000'}}
@@ -136,7 +135,53 @@ class Header extends Component {
                           className="popup-para"
                           style={{color: darkTheme ? '#ffffff' : '#00306e'}}
                         >
-                          Are you sure you want to logout?
+                          Are you sure, you want to logout
+                        </p>
+                        <div className="popup-btn-box">
+                          <button
+                            type="button"
+                            className="trigger-button popup-cancel"
+                            onClick={() => close()}
+                            style={cancelBtn}
+                          >
+                            Cancel
+                          </button>
+
+                          <button
+                            type="button"
+                            className="popup-confirm"
+                            onClick={onLogOut}
+                          >
+                            Confirm
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </Popup>
+
+                  <Popup
+                    modal
+                    className="popup-logout"
+                    trigger={
+                      <button
+                        type="button"
+                        className="trigger-button logout-btn logout-btn-para pop-lg"
+                        style={logoutBtnPara}
+                      >
+                        Logout
+                      </button>
+                    }
+                  >
+                    {close => (
+                      <div
+                        className="popup-logout-content "
+                        style={{backgroundColor: `${popupThemeBgColor}`}}
+                      >
+                        <p
+                          className="popup-para"
+                          style={{color: darkTheme ? '#ffffff' : '#00306e'}}
+                        >
+                          Are you sure, you want to logout
                         </p>
                         <div className="popup-btn-box">
                           <button

@@ -8,6 +8,8 @@ const Context = React.createContext({
   savedVideosList: [],
   saveVideo: () => {},
   removeVideo: () => {},
+  findElement: () => {},
+  updateElement: () => {},
 })
 
 export default Context

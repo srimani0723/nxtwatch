@@ -207,7 +207,7 @@ class Trending extends Component {
               <Header />
               <MainContainer flex="row">
                 <SideNavbar />
-                <ContentBox darkTheme={darkTheme}>
+                <ContentBox data-testid="trending" darkTheme={darkTheme}>
                   {this.renderApiView()}
                 </ContentBox>
               </MainContainer>

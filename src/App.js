@@ -44,8 +44,13 @@ class App extends Component {
     const index = savedVideosList.findIndex(each => each.id === obj.id)
     if (index === -1) {
       this.setState(prevState => ({
-        savedVideosList: [...prevState.savedVideosList, obj],
+        savedVideosList: [
+          ...prevState.savedVideosList,
+          {...obj, isSaved: true},
+        ],
       }))
+    } else {
+      this.deleteSavedVideos(obj)
     }
   }
 
@@ -55,6 +60,32 @@ class App extends Component {
     const newList = savedVideosList.filter(each => each.id !== obj.id)
 
     this.setState({savedVideosList: newList})
+  }
+
+  findElement = obj => {
+    const {savedVideosList} = this.state
+    const index = savedVideosList.findIndex(each => each.id === obj.id)
+    if (index === -1) {
+      return false
+    }
+    const ele = savedVideosList.filter(each => each.id === obj.id)
+    console.log(ele, 'app.js')
+    return ele[0]
+  }
+
+  updatedElement = obj => {
+    const {savedVideosList} = this.state
+    const index = savedVideosList.findIndex(each => each.id === obj.id)
+    if (index !== -1) {
+      this.deleteSavedVideos(obj)
+
+      this.setState(prevState => ({
+        savedVideosList: [
+          ...prevState.savedVideosList,
+          {...obj, isSaved: true},
+        ],
+      }))
+    }
   }
 
   render() {
@@ -70,6 +101,8 @@ class App extends Component {
           savedVideosList,
           saveVideo: this.addSavedVideos,
           removeVideo: this.deleteSavedVideos,
+          findElement: this.findElement,
+          updateElement: this.updatedElement,
         }}
       >
         <Switch>

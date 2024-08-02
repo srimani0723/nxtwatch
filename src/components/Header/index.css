@@ -14,7 +14,7 @@
 }
 
 .logout-btn-para {
-  padding-left: 15px;
+  padding-left: 10px;
   padding-right: 15px;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -87,6 +87,12 @@
   .options-btn {
     display: none;
   }
+  .pop-lg {
+    display: block;
+  }
+  .pop-sm {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -100,6 +106,12 @@
     margin-left: 10px;
   }
   .options-btn {
+    display: block;
+  }
+  .pop-lg {
+    display: none;
+  }
+  .pop-sm {
     display: block;
   }
 }

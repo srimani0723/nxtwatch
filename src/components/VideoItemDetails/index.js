@@ -50,12 +50,26 @@ class VideoItemDetails extends Component {
     videoData: null,
     like: false,
     dislike: false,
-    save: false,
   }
 
   componentDidMount() {
     this.getVideoDetails()
   }
+
+  formattedData = each => ({
+    channel: {
+      name: each.channel.name,
+      profileImageUrl: each.channel.profile_image_url,
+      subscriberCount: each.channel.subscriber_count,
+    },
+    description: each.description,
+    id: each.id,
+    publishedAt: each.published_at,
+    thumbnailUrl: each.thumbnail_url,
+    title: each.title,
+    videoUrl: each.video_url,
+    viewCount: each.view_count,
+  })
 
   getVideoDetails = async () => {
     this.setState({
@@ -78,20 +92,7 @@ class VideoItemDetails extends Component {
     if (response.ok) {
       const data = await response.json()
       const each = data.video_details
-      const newData = {
-        channel: {
-          name: each.channel.name,
-          profileImageUrl: each.channel.profile_image_url,
-          subscriberCount: each.channel.subscriber_count,
-        },
-        description: each.description,
-        id: each.id,
-        publishedAt: each.published_at,
-        thumbnailUrl: each.thumbnail_url,
-        title: each.title,
-        videoUrl: each.video_url,
-        viewCount: each.view_count,
-      }
+      const newData = this.formattedData(each)
 
       this.setState({
         videoData: newData,
@@ -114,7 +115,7 @@ class VideoItemDetails extends Component {
 
         return (
           <FailureBox>
-            <FailureImg src={failureImg} />
+            <FailureImg src={failureImg} alt="failure view" />
             <FailureH1 darkTheme={darkTheme}>
               Oops! Something Went Wrong
             </FailureH1>
@@ -122,7 +123,7 @@ class VideoItemDetails extends Component {
               We are having some trouble to complete your request. Please try
               again.
             </FailurePara>
-            <FailureBtn type="button" onClick={this.getVideosList}>
+            <FailureBtn type="button" onClick={this.getVideoDetails}>
               Retry
             </FailureBtn>
           </FailureBox>
@@ -163,17 +164,11 @@ class VideoItemDetails extends Component {
     }))
   }
 
-  onSaveVideo = () => {
-    this.setState(prevState => ({
-      save: !prevState.save,
-    }))
-  }
-
   renderVideoDetails = () => (
     <Context.Consumer>
       {value => {
-        const {darkTheme, saveVideo} = value
-        const {videoData, like, save, dislike} = this.state
+        const {darkTheme, saveVideo, savedVideosList} = value
+        const {videoData, like, dislike} = this.state
         const {
           channel,
           description,
@@ -182,6 +177,16 @@ class VideoItemDetails extends Component {
           videoUrl,
           viewCount,
         } = videoData
+
+        let isSaved
+        const index = savedVideosList.findIndex(
+          each => each.id === videoData.id,
+        )
+        if (index === -1) {
+          isSaved = false
+        } else {
+          isSaved = true
+        }
 
         const {name, profileImageUrl, subscriberCount} = channel
 
@@ -205,8 +210,8 @@ class VideoItemDetails extends Component {
                 <ActionButton
                   type="button"
                   darkTheme={darkTheme}
-                  onClick={this.onLike}
-                  style={{color: like ? '#ff0000' : null}}
+                  onClick={this.onLike()}
+                  style={{color: like ? '#2563eb' : null}}
                 >
                   <AiOutlineLike className="action-icon" />
                   Like
@@ -215,8 +220,8 @@ class VideoItemDetails extends Component {
                 <ActionButton
                   type="button"
                   darkTheme={darkTheme}
-                  onClick={this.onDisLike}
-                  style={{color: dislike ? '#ff0000' : null}}
+                  onClick={this.onDisLike()}
+                  style={{color: dislike ? '#2563eb' : null}}
                 >
                   <AiOutlineDislike className="action-icon" />
                   Dislike
@@ -225,23 +230,20 @@ class VideoItemDetails extends Component {
                 <ActionButton
                   type="button"
                   darkTheme={darkTheme}
-                  style={{color: save ? '#ff0000' : null}}
-                  onClick={() => {
-                    saveVideo({...videoData, isSaved: true})
-                    this.onSaveVideo()
-                  }}
+                  style={{color: isSaved ? '#2563eb' : null}}
+                  onClick={saveVideo(videoData)}
                 >
                   <MdPlaylistAdd className="action-icon" />
-                  Save
+                  {isSaved ? 'Saved' : 'Save'}
                 </ActionButton>
               </VideoAction>
             </ActionBox>
 
             <ChannelBox>
-              <ChannelLogo src={profileImageUrl} />
+              <ChannelLogo src={profileImageUrl} alt="channel logo" />
               <ChannelContent>
                 <ChannelName darkTheme={darkTheme}>{name}</ChannelName>
-                <Name darkTheme={darkTheme}>{subscriberCount}</Name>
+                <Name darkTheme={darkTheme}>{subscriberCount} subscribers</Name>
                 <ChannelDes darkTheme={darkTheme}>{description}</ChannelDes>
               </ChannelContent>
             </ChannelBox>

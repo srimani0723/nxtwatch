@@ -9,6 +9,7 @@ import Context from '../Context'
 import Header from '../Header'
 import SideNavbar from '../SideNavbar'
 import HomeVideoCard from '../HomeVideoCard'
+import FailureView from '../FailureView'
 
 import {
   Container,
@@ -51,6 +52,18 @@ class Home extends Component {
     this.getVideosList()
   }
 
+  formattedData = each => ({
+    channel: {
+      name: each.channel.name,
+      profileImageUrl: each.channel.profile_image_url,
+    },
+    id: each.id,
+    publishedAt: each.published_at,
+    thumbnailUrl: each.thumbnail_url,
+    title: each.title,
+    viewCount: each.view_count,
+  })
+
   getVideosList = async () => {
     this.setState({
       apiStatus: apiStatusConstants.inProgress,
@@ -69,17 +82,7 @@ class Home extends Component {
     const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
-      const newData = data.videos.map(each => ({
-        channel: {
-          name: each.channel.name,
-          profileImageUrl: each.channel.profile_image_url,
-        },
-        id: each.id,
-        publishedAt: each.published_at,
-        thumbnailUrl: each.thumbnail_url,
-        title: each.title,
-        viewCount: each.view_count,
-      }))
+      const newData = this.formattedData(data.videos)
 
       this.setState({
         videosList: newData,
@@ -125,32 +128,7 @@ class Home extends Component {
     </Context.Consumer>
   )
 
-  renderFailureView = () => (
-    <Context.Consumer>
-      {value => {
-        const {darkTheme} = value
-        const failureImg = darkTheme
-          ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
-          : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
-
-        return (
-          <FailureBox>
-            <FailureImg src={failureImg} />
-            <FailureH1 darkTheme={darkTheme}>
-              Oops! Something Went Wrong
-            </FailureH1>
-            <FailurePara darkTheme={darkTheme}>
-              We are having some trouble to complete your request. Please try
-              again.
-            </FailurePara>
-            <FailureBtn type="button" onClick={this.getVideosList}>
-              Retry
-            </FailureBtn>
-          </FailureBox>
-        )
-      }}
-    </Context.Consumer>
-  )
+  renderFailureView = () => <FailureView retry={this.getVideosList} />
 
   renderNovideosView = () => (
     <Context.Consumer>
@@ -262,6 +240,7 @@ class Home extends Component {
                     <SearchBtn
                       type="button"
                       darkTheme={darkTheme}
+                      data-testid="searchButton"
                       onClick={this.getVideosList}
                     >
                       <IoMdSearch />

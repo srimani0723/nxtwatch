@@ -33,10 +33,10 @@ export const ContactUs = styled.div`
   margin-bottom: 20px;
 `
 
-export const H1 = styled.h1`
+export const H1 = styled.p`
   color: ${props => (props.darkTheme ? '#f9f9f9' : '#0f0f0f')};
   font-weight: 500;
-  font-size: medium;
+  font-size: large;
 `
 
 export const SocialBox = styled.ul`

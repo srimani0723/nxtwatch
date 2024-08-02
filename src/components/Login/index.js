@@ -94,7 +94,7 @@ class Login extends Component {
                 shadow={loginFormShadow}
               >
                 <LogoBox>
-                  <Logo src={logo} alt="logo" />
+                  <Logo src={logo} alt="website logo" />
                 </LogoBox>
 
                 <LoginBox direction="column">

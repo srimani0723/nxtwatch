@@ -62,7 +62,6 @@ export const ActionBox = styled.div`
 export const ActionButton = styled.button`
   display: flex;
   align-items: center;
-  color: ${props => (props.darkTheme ? '#f9f9f9' : '#0f0f0f')};
 
   background: transparent;
   border: 0px;

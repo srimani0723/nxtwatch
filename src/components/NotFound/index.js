@@ -33,10 +33,10 @@ class NotFound extends Component {
                   data-testid="videoItemDetails"
                   darkTheme={darkTheme}
                 >
-                  <Image src={image} />
+                  <Image src={image} alt="not found" />
                   <H1 darkTheme={darkTheme}>Page Not Found</H1>
                   <Para>
-                    We are sorry, the page you requested could not be found
+                    we are sorry, the page you requested could not be found.
                   </Para>
                 </ContentBox>
               </MainContainer>
