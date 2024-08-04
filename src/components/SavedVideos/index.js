@@ -50,11 +50,9 @@ class SavedVideos extends Component {
       {value => {
         const {darkTheme, savedVideosList} = value
 
-        if (savedVideosList.length === 0) {
-          return this.renderNovideosView()
-        }
-
-        return (
+        return savedVideosList.length === 0 ? (
+          this.renderNovideosView()
+        ) : (
           <>
             <HeadingBox darkTheme={darkTheme}>
               <HeadingLogo darkTheme={darkTheme}>

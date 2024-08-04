@@ -65,6 +65,10 @@ const PlayerCard = props => {
           .slice(1, 3)
           .join(' ')
 
+        const likeColor = isLiked ? '#2563eb' : '#64748b'
+        const dislikeColor = isDisliked ? '#2563eb' : '#64748b'
+        const savedColor = isSaved ? '#2563eb' : '#64748b'
+
         return (
           <PlayerBox>
             <ReactPlayer url={videoUrl} controls width="100%" height="100%" />
@@ -81,7 +85,7 @@ const PlayerCard = props => {
                   type="button"
                   darkTheme={darkTheme}
                   onClick={onLike}
-                  style={{color: isLiked ? '#2563eb' : '#64748b'}}
+                  clr={likeColor}
                 >
                   <AiOutlineLike className="action-icon" />
                   Like
@@ -91,7 +95,7 @@ const PlayerCard = props => {
                   type="button"
                   darkTheme={darkTheme}
                   onClick={onDislike}
-                  style={{color: isDisliked ? '#2563eb' : '#64748b'}}
+                  clr={dislikeColor}
                 >
                   <AiOutlineDislike className="action-icon" />
                   Dislike
@@ -100,7 +104,7 @@ const PlayerCard = props => {
                 <ActionButton
                   type="button"
                   darkTheme={darkTheme}
-                  style={{color: isSaved ? '#2563eb' : '#64748b'}}
+                  clr={savedColor}
                   onClick={onSavevideo}
                 >
                   <MdPlaylistAdd className="action-icon" />
@@ -114,7 +118,7 @@ const PlayerCard = props => {
               <ChannelContent>
                 <ChannelName darkTheme={darkTheme}>{name}</ChannelName>
                 <Name darkTheme={darkTheme}>{subscriberCount} subscribers</Name>
-                <ChannelDes darkTheme={darkTheme}>{description}</ChannelDes>
+                {/* <ChannelDes darkTheme={darkTheme}>{description}</ChannelDes> */}
               </ChannelContent>
             </ChannelBox>
 

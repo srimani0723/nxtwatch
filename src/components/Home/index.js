@@ -80,7 +80,6 @@ class Home extends Component {
     const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
-      console.log(data)
       const newData = data.videos.map(each => this.formattedData(each))
 
       this.setState({

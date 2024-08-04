@@ -67,7 +67,7 @@ export const ActionButton = styled.button`
   border: 0px;
   cursor: pointer;
 
-  color: #64748b;
+  color: ${props => props.clr};
   font-size: 15px;
   font-weight: bold;
   @media screen and (max-width: 576px) {
@@ -116,12 +116,12 @@ export const ChannelDesSm = styled.p`
   font-size: medium;
   font-weight: 500;
 
-  @media screen and (max-width: 576px) {
-    display: block;
-  }
+//   @media screen and (max-width: 576px) {
+//     display: block;
+//   }
 
-  @media screen and (min-width: 576px) {
-    display: none;
+//   @media screen and (min-width: 576px) {
+//     display: none;
   }
 `
 
