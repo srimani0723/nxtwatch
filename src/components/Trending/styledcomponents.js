@@ -12,7 +12,7 @@ export const MainContainer = styled.div`
 export const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${props => (props.darkTheme ? '#090909' : '#f9f9f9')};
+  background-color: ${props => (props.darkTheme ? '#0f0f0f' : '#f9f9f9')};
 
   width: 85%;
   @media screen and (min-width: 992px) {

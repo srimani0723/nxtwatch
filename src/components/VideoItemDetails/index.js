@@ -1,40 +1,23 @@
 import {Component} from 'react'
-import ReactPlayer from 'react-player'
 import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
-import {formatDistanceToNow} from 'date-fns'
-
-import {AiOutlineLike, AiOutlineDislike} from 'react-icons/ai'
-import {BsDot} from 'react-icons/bs'
-import {MdPlaylistAdd} from 'react-icons/md'
 
 import Context from '../Context'
 import Header from '../Header'
 import SideNavbar from '../SideNavbar'
+import PlayerCard from '../PlayerCard'
 
 import './index.css'
 import {
   Container,
   MainContainer,
   ContentBox,
-  VideoTitle,
   LoaderBox,
   FailureBox,
   FailureBtn,
   FailureH1,
   FailureImg,
   FailurePara,
-  PlayerBox,
-  ActionBox,
-  Name,
-  VideoAction,
-  ActionButton,
-  ChannelBox,
-  ChannelLogo,
-  ChannelContent,
-  ChannelName,
-  ChannelDes,
-  ChannelDesSm,
 } from './styledcomponents'
 
 const apiStatusConstants = {
@@ -80,6 +63,7 @@ class VideoItemDetails extends Component {
     const {match} = this.props
     const {params} = match
     const {id} = params
+
     const url = `https://apis.ccbp.in/videos/${id}`
     const options = {
       headers: {
@@ -164,96 +148,19 @@ class VideoItemDetails extends Component {
     }))
   }
 
-  renderVideoDetails = () => (
-    <Context.Consumer>
-      {value => {
-        const {darkTheme, saveVideo, savedVideosList} = value
-        const {videoData, like, dislike} = this.state
-        const {
-          channel,
-          description,
-          publishedAt,
-          title,
-          videoUrl,
-          viewCount,
-        } = videoData
+  renderVideoDetails = () => {
+    const {like, dislike, videoData} = this.state
 
-        let isSaved
-        const index = savedVideosList.findIndex(
-          each => each.id === videoData.id,
-        )
-        if (index === -1) {
-          isSaved = false
-        } else {
-          isSaved = true
-        }
-
-        const {name, profileImageUrl, subscriberCount} = channel
-
-        const date = formatDistanceToNow(new Date(publishedAt))
-          .split(' ')
-          .slice(1, 3)
-          .join(' ')
-
-        return (
-          <PlayerBox>
-            <ReactPlayer url={videoUrl} controls width="100%" height="100%" />
-            <VideoTitle darkTheme={darkTheme}>{title}</VideoTitle>
-            <ActionBox>
-              <VideoAction>
-                <Name darkTheme={darkTheme}>{viewCount} views</Name>
-                <BsDot size={20} className="dot" />
-                <Name darkTheme={darkTheme}>{date} ago</Name>
-              </VideoAction>
-
-              <VideoAction>
-                <ActionButton
-                  type="button"
-                  darkTheme={darkTheme}
-                  onClick={this.onLike()}
-                  style={{color: like ? '#2563eb' : null}}
-                >
-                  <AiOutlineLike className="action-icon" />
-                  Like
-                </ActionButton>
-
-                <ActionButton
-                  type="button"
-                  darkTheme={darkTheme}
-                  onClick={this.onDisLike()}
-                  style={{color: dislike ? '#2563eb' : null}}
-                >
-                  <AiOutlineDislike className="action-icon" />
-                  Dislike
-                </ActionButton>
-
-                <ActionButton
-                  type="button"
-                  darkTheme={darkTheme}
-                  style={{color: isSaved ? '#2563eb' : null}}
-                  onClick={saveVideo(videoData)}
-                >
-                  <MdPlaylistAdd className="action-icon" />
-                  {isSaved ? 'Saved' : 'Save'}
-                </ActionButton>
-              </VideoAction>
-            </ActionBox>
-
-            <ChannelBox>
-              <ChannelLogo src={profileImageUrl} alt="channel logo" />
-              <ChannelContent>
-                <ChannelName darkTheme={darkTheme}>{name}</ChannelName>
-                <Name darkTheme={darkTheme}>{subscriberCount} subscribers</Name>
-                <ChannelDes darkTheme={darkTheme}>{description}</ChannelDes>
-              </ChannelContent>
-            </ChannelBox>
-
-            <ChannelDesSm darkTheme={darkTheme}>{description}</ChannelDesSm>
-          </PlayerBox>
-        )
-      }}
-    </Context.Consumer>
-  )
+    return (
+      <PlayerCard
+        likeIt={this.onLike}
+        dislikeIt={this.onDisLike}
+        isLiked={like}
+        isDisliked={dislike}
+        videoData={videoData}
+      />
+    )
+  }
 
   renderApiView = () => {
     const {apiStatus} = this.state

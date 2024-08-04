@@ -67,6 +67,7 @@ export const ActionButton = styled.button`
   border: 0px;
   cursor: pointer;
 
+  color: #64748b;
   font-size: 15px;
   font-weight: bold;
   @media screen and (max-width: 576px) {

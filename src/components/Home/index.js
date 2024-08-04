@@ -9,7 +9,6 @@ import Context from '../Context'
 import Header from '../Header'
 import SideNavbar from '../SideNavbar'
 import HomeVideoCard from '../HomeVideoCard'
-import FailureView from '../FailureView'
 
 import {
   Container,
@@ -69,7 +68,6 @@ class Home extends Component {
       apiStatus: apiStatusConstants.inProgress,
     })
     const {searchInput} = this.state
-    console.log(searchInput)
     const jwtToken = Cookies.get('jwt_token')
 
     const url = `https://apis.ccbp.in/videos/all?search=${searchInput}`
@@ -82,7 +80,8 @@ class Home extends Component {
     const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
-      const newData = this.formattedData(data.videos)
+      console.log(data)
+      const newData = data.videos.map(each => this.formattedData(each))
 
       this.setState({
         videosList: newData,
@@ -128,7 +127,32 @@ class Home extends Component {
     </Context.Consumer>
   )
 
-  renderFailureView = () => <FailureView retry={this.getVideosList} />
+  renderFailureView = () => (
+    <Context.Consumer>
+      {value => {
+        const {darkTheme} = value
+        const failureImg = darkTheme
+          ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
+          : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
+
+        return (
+          <FailureBox>
+            <FailureImg src={failureImg} alt="failure view" />
+            <FailureH1 darkTheme={darkTheme}>
+              Oops! Something Went Wrong
+            </FailureH1>
+            <FailurePara darkTheme={darkTheme}>
+              We are having some trouble to complete your request. Please try
+              again.
+            </FailurePara>
+            <FailureBtn type="button" onClick={this.getVideosList}>
+              Retry
+            </FailureBtn>
+          </FailureBox>
+        )
+      }}
+    </Context.Consumer>
+  )
 
   renderNovideosView = () => (
     <Context.Consumer>

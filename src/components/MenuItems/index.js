@@ -1,5 +1,5 @@
-import {Link, withRouter, useLocation} from 'react-router-dom'
-import {useContext, useEffect} from 'react'
+import {Link, withRouter} from 'react-router-dom'
+import {useContext} from 'react'
 import {SiYoutubegaming} from 'react-icons/si'
 import {AiFillHome} from 'react-icons/ai'
 import {MdPlaylistAdd} from 'react-icons/md'
@@ -25,18 +25,9 @@ const menuPath = {
 }
 
 const MenuItems = () => {
-  const location = useLocation()
-  const {pathname} = location
   const context = useContext(Context)
 
   const {activeMenu, changeMenu} = context
-
-  useEffect(() => {
-    const currentMenu = menuPath[pathname]
-    if (currentMenu !== activeMenu) {
-      changeMenu(currentMenu)
-    }
-  }, [pathname, activeMenu, changeMenu])
 
   return (
     <Context.Consumer>

@@ -7,9 +7,6 @@ const Context = React.createContext({
   changeMenu: () => {},
   savedVideosList: [],
   saveVideo: () => {},
-  removeVideo: () => {},
-  findElement: () => {},
-  updateElement: () => {},
 })
 
 export default Context
