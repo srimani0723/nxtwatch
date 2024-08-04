@@ -37,7 +37,7 @@ class SavedVideos extends Component {
             />
             <FailureH1 darkTheme={darkTheme}>No saved videos found</FailureH1>
             <FailurePara darkTheme={darkTheme}>
-              Save your videos by clicking a button
+              You can save your videos while watching them{' '}
             </FailurePara>
           </FailureBox>
         )
@@ -50,11 +50,9 @@ class SavedVideos extends Component {
       {value => {
         const {darkTheme, savedVideosList} = value
 
-        if (savedVideosList.length === 0) {
-          return this.renderNovideosView()
-        }
-
-        return (
+        return savedVideosList.length === 0 ? (
+          this.renderNovideosView()
+        ) : (
           <>
             <HeadingBox darkTheme={darkTheme}>
               <HeadingLogo darkTheme={darkTheme}>

@@ -6,6 +6,7 @@ import Context from '../Context'
 import Header from '../Header'
 import SideNavbar from '../SideNavbar'
 import PlayerCard from '../PlayerCard'
+import FailureView from '../FailureView'
 
 import './index.css'
 import {
@@ -89,32 +90,7 @@ class VideoItemDetails extends Component {
     }
   }
 
-  renderFailureView = () => (
-    <Context.Consumer>
-      {value => {
-        const {darkTheme} = value
-        const failureImg = darkTheme
-          ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
-          : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
-
-        return (
-          <FailureBox>
-            <FailureImg src={failureImg} alt="failure view" />
-            <FailureH1 darkTheme={darkTheme}>
-              Oops! Something Went Wrong
-            </FailureH1>
-            <FailurePara darkTheme={darkTheme}>
-              We are having some trouble to complete your request. Please try
-              again.
-            </FailurePara>
-            <FailureBtn type="button" onClick={this.getVideoDetails}>
-              Retry
-            </FailureBtn>
-          </FailureBox>
-        )
-      }}
-    </Context.Consumer>
-  )
+  renderFailureView = () => <FailureView retry={this.getVideoDetails} />
 
   renderLoader = () => (
     <Context.Consumer>
@@ -143,8 +119,8 @@ class VideoItemDetails extends Component {
 
   onDisLike = () => {
     this.setState(prevState => ({
-      like: false,
       dislike: !prevState.dislike,
+      like: false,
     }))
   }
 

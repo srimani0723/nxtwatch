@@ -9,6 +9,7 @@ import Context from '../Context'
 import Header from '../Header'
 import SideNavbar from '../SideNavbar'
 import TrendingVideoCard from '../TrendingVideoCard'
+import FailureView from '../FailureView'
 
 import {
   Container,
@@ -101,32 +102,7 @@ class Trending extends Component {
     </Context.Consumer>
   )
 
-  renderFailureView = () => (
-    <Context.Consumer>
-      {value => {
-        const {darkTheme} = value
-        const failureImg = darkTheme
-          ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
-          : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
-
-        return (
-          <FailureBox>
-            <FailureImg src={failureImg} />
-            <FailureH1 darkTheme={darkTheme}>
-              Oops! Something Went Wrong
-            </FailureH1>
-            <FailurePara darkTheme={darkTheme}>
-              We are having some trouble to complete your request. Please try
-              again.
-            </FailurePara>
-            <FailureBtn type="button" onClick={this.getVideosList}>
-              Retry
-            </FailureBtn>
-          </FailureBox>
-        )
-      }}
-    </Context.Consumer>
-  )
+  renderFailureView = () => <FailureView retry={this.getVideosList} />
 
   renderNovideosView = () => (
     <Context.Consumer>

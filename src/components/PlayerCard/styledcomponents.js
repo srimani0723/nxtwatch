@@ -67,7 +67,7 @@ export const ActionButton = styled.button`
   border: 0px;
   cursor: pointer;
 
-  color: #64748b;
+  color: ${props => props.clr};
   font-size: 15px;
   font-weight: bold;
   @media screen and (max-width: 576px) {
@@ -87,8 +87,7 @@ export const ChannelContent = styled.div`
 `
 
 export const ChannelLogo = styled.img`
-  width: 10%;
-  max-width: 50px;
+  width: 50px;
 
   margin-top: 10px;
 `
@@ -102,26 +101,12 @@ export const ChannelDes = styled.p`
   font-size: medium;
   font-weight: 500;
 
-  @media screen and (max-width: 576px) {
-    display: none;
-  }
+  //   @media screen and (max-width: 576px) {
+  //     display: block;
+  //   }
 
   @media screen and (min-width: 576px) {
-    display: block;
-  }
-`
-
-export const ChannelDesSm = styled.p`
-  color: ${props => (props.darkTheme ? '#f9f9f9' : '#424242')};
-  font-size: medium;
-  font-weight: 500;
-
-  @media screen and (max-width: 576px) {
-    display: block;
-  }
-
-  @media screen and (min-width: 576px) {
-    display: none;
+    padding-left: 60px;
   }
 `
 
